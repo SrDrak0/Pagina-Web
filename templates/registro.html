@@ -1,0 +1,36 @@
+{% extends 'base.html'%}
+
+{% block title %} Registro de Estudiante {% endblock%}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>📝 Formulario de Registro</h2>
+    <p>Por favor, ingrese los datos del nuevo estudiante.</p>
+
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    <form action="{{ url_for('registro') }}" method="POST">
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre:</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" required>
+        </div>
+        <div class="mb-3">
+            <label for="apellido" class="form-label">Apellido:</label>
+            <input type="text" class="form-control" id="apellido" name="apellido" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Correo Electrónico:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="mb-3">
+            <label for="carrera" class="form-label">Carrera:</label>
+            <input type="text" class="form-control" id="carrera" name="carrera" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Registrar Estudiante</button>
+    </form>
+</div>
+{% endblock%}

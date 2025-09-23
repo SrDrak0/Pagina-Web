@@ -1,0 +1,14 @@
+<!-- vision -->
+{% extends 'base.html'%}
+
+{% block title %} Visión {% endblock%}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Nuestra Visión</h1>
+    <p>La Universitaria de Colombia aspira a ser reconocida en 2030 como una institución líder a nivel nacional e internacional en la formación de profesionales innovadores y con impacto social. Visualizamos una universidad que se distinga por su excelencia académica, su producción científica relevante y su capacidad de adaptación a las nuevas tendencias tecnológicas y educativas.</p>
+    <p>Seremos un referente en la investigación aplicada, la transferencia de conocimiento y la creación de soluciones sostenibles para los retos más apremiantes de nuestro entorno, promoviendo siempre un ambiente inclusivo y de aprendizaje continuo.</p>
+    <hr>
+    <a href="{{ url_for('mision') }}" class="btn btn-info">Conoce nuestra Misión</a>
+</div>
+{% endblock%}   

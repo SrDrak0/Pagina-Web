@@ -1,0 +1,14 @@
+<!-- mision -->
+{% extends 'base.html'%}
+
+{% block title %} Misión {% endblock%}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Nuestra Misión</h1>
+    <p>En la Universitaria de Colombia, nuestra misión es formar profesionales íntegros y altamente competentes, capaces de responder a los desafíos globales y de contribuir activamente al desarrollo sostenible de la sociedad. Nos comprometemos con una educación de calidad que fomente el pensamiento crítico, la investigación innovadora y la responsabilidad social, preparando a nuestros estudiantes para ser líderes y agentes de cambio en sus respectivas disciplinas.</p>
+    <p>Buscamos ser un motor de progreso, impulsando el conocimiento y la creatividad, y promoviendo valores éticos y humanísticos en toda nuestra comunidad.</p>
+    <hr>
+    <a href="{{ url_for('programas') }}" class="btn btn-info">Explora nuestros Programas</a>
+</div>
+{% endblock%}

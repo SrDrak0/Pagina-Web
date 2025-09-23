@@ -1,0 +1,80 @@
+<!-- base -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universitaria de Colombia - {% block title%} {% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        
+        .header-banner {
+            background-color: #0056b3; 
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+        }
+        .header-banner img {
+            height: 60px; 
+            margin-right: 15px; 
+        }
+        .header-banner h1 {
+            margin: 0; 
+            font-size: 2.5em; 
+        }
+        footer {
+            background-color: #f8f9fa; 
+            padding: 15px 0;
+            text-align: center;
+            margin-top: 40px; 
+            border-top: 1px solid #e9ecef;
+        }
+        footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-banner">
+        <img src="https://universitariadecolombia.edu.co/wp-content/uploads/2025/04/Logo_universitaria_white_3-1.png" srcset="https://universitariadecolombia.edu.co/wp-content/uploads/2025/04/Logo_universitaria_white_3-1.png 1x" width="169" height="57" alt="Universitaria de Colombia Logo" data-retina_logo_url="" class="fusion-standard-logo" style="">
+        <h1>Universitaria de Colombia</h1>
+    </div>
+
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark"> 
+        <div class="container-fluid">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('index')}}">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('mision')}}">Misión</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('vision')}}">Visión</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('programas')}}">Programas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{url_for('registro')}}"><b>Registrar Estudiante</b></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    {% block content%} {% endblock %}
+    
+    <footer>
+        <p>&copy; 2023 Universitaria de Colombia. Todos los derechos reservados.</p>
+        <a href="https://www.google.com" target="_blank">Visítenos en Internet</a>
+    </footer>
+</body>
+</html>

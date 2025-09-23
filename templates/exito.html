@@ -1,0 +1,15 @@
+{% extends 'base.html'%}
+
+{% block title %} Registro Exitoso {% endblock%}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="alert alert-success" role="alert">
+      <h4 class="alert-heading">✅ ¡Registro Exitoso!</h4>
+      <p>El estudiante ha sido añadido a la base de datos correctamente.</p>
+      <hr>
+      <a href="{{ url_for('registro') }}" class="btn btn-secondary">Registrar otro estudiante</a>
+      <a href="{{ url_for('index') }}" class="btn btn-info">Volver al inicio</a>
+    </div>
+</div>
+{% endblock%}
