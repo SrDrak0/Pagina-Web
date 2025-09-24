@@ -6,64 +6,26 @@
 {% block content %}
 <div class="container mt-4">
     <h1 class="mb-4">Nuestros Programas Académicos</h1>
-    <p>Ofrecemos una amplia gama de programas de pregrado y posgrado diseñados para responder a las demandas del mercado laboral y a las necesidades de la sociedad.</p>
+    <p>Descubre nuestra oferta académica, organizada por facultades. Desde pregrados hasta posgrados, tenemos un camino para tu futuro profesional.</p>
     
-    <div class="row">
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">Ingeniería de Sistemas</h5>
-                    <p class="card-text">Formamos ingenieros capaces de diseñar, desarrollar y gestionar soluciones tecnológicas innovadoras.</p>
-                    <a href="#" class="btn btn-primary">Más Información</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">Administración de Empresas</h5>
-                    <p class="card-text">Preparamos líderes empresariales con visión estratégica y habilidades para la gestión eficiente de organizaciones.</p>
-                    <a href="#" class="btn btn-primary">Más Información</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">Comunicación Social</h5>
-                    <p class="card-text">Desarrollamos comunicadores con pensamiento crítico y dominio de diversas plataformas mediáticas.</p>
-                    <a href="#" class="btn btn-primary">Más Información</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">Contaduría Pública</h5>
-                    <p class="card-text">Profesionales capacitados en finanzas, auditoría y normatividad contable y tributaria.</p>
-                    <a href="#" class="btn btn-primary">Más Información</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">Diseño Gráfico</h5>
-                    <p class="card-text">Creativos visuales con dominio de las herramientas y tendencias del diseño contemporáneo.</p>
-                    <a href="#" class="btn btn-primary">Más Información</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">Maestría en Innovación Educativa</h5>
-                    <p class="card-text">Programa de posgrado para educadores que buscan transformar los procesos de enseñanza-aprendizaje.</p>
-                    <a href="#" class="btn btn-primary">Más Información</a>
-                </div>
-            </div>
-        </div>  
-    </div>
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Nombre del Programa</th>
+                <th>Facultad</th>
+                <th>Descripción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for programa in programas %}
+            <tr>
+                <td>{{ programa['nombre'] }}</td>
+                <td>{{ programa['facultad'] }}</td>
+                <td>{{ programa['descripcion'] }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+    </table>
     
     <hr>
     <p>¿Interesado en alguno de nuestros programas? ¡Regístrate ahora y te contactaremos!</p>

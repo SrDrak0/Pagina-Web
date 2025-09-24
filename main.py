@@ -23,7 +23,18 @@ def vision():
 
 @app.route("/programas")
 def programas():
-    return render_template('programas.html')
+
+    conn = sqlite3.connect('universidad.db')
+    conn.row_factory = sqlite3.Row 
+    cursor = conn.cursor()
+
+    cursor.execute('SELECT * FROM programas ORDER BY facultad, nombre')
+    
+    lista_de_programas = cursor.fetchall()
+    
+    conn.close()
+
+    return render_template('programas.html', programas=lista_de_programas)
 
 @app.route("/registro", methods=['GET', 'POST'])
 def registro():
