@@ -77,6 +77,61 @@ def exito():
     return render_template('exito.html')
 
 
+@app.route('/programas/agregar', methods=['GET', 'POST'])
+def agregar_programa():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        facultad = request.form['facultad']
+        descripcion = request.form['descripcion']
+
+        if nombre and facultad: 
+            conn = sqlite3.connect('universidad.db')
+            cursor = conn.cursor()
+            cursor.execute('INSERT INTO programas (nombre, facultad, descripcion) VALUES (?, ?, ?)',
+                           (nombre, facultad, descripcion))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('programas'))
+
+    return render_template('agregar_programa.html')
+
+
+@app.route('/programas/editar/<int:id>', methods=['GET', 'POST'])
+def editar_programa(id):
+    conn = sqlite3.connect('universidad.db')
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        facultad = request.form['facultad']
+        descripcion = request.form['descripcion']
+
+        if nombre and facultad:
+            cursor.execute('UPDATE programas SET nombre = ?, facultad = ?, descripcion = ? WHERE id = ?',
+                           (nombre, facultad, descripcion, id))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('programas'))
+    
+ 
+    cursor.execute('SELECT * FROM programas WHERE id = ?', (id,))
+    programa = cursor.fetchone()
+    conn.close()
+    
+    if programa is None:
+        return "Programa no encontrado", 404
+        
+    return render_template('editar_programa.html', programa=programa)
+
+@app.route('/programas/eliminar/<int:id>')
+def eliminar_programa(id):
+    conn = sqlite3.connect('universidad.db')
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM programas WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('programas'))
 
 if __name__ == '__main__':
     app.run(debug=True)

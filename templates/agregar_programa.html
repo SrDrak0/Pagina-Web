@@ -1,0 +1,27 @@
+{% extends 'base.html'%}
+
+{% block title %} Añadir Programa {% endblock%}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Añadir Nuevo Programa Académico</h2>
+    <p>Completa el formulario para registrar un nuevo programa.</p>
+
+    <form action="{{ url_for('agregar_programa') }}" method="POST">
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre del Programa:</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" required>
+        </div>
+        <div class="mb-3">
+            <label for="facultad" class="form-label">Facultad:</label>
+            <input type="text" class="form-control" id="facultad" name="facultad" required>
+        </div>
+        <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción:</label>
+            <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Guardar Programa</button>
+        <a href="{{ url_for('programas') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock%}

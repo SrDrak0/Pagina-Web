@@ -1,0 +1,27 @@
+{% extends 'base.html'%}
+
+{% block title %} Editar Programa {% endblock%}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Editando: {{ programa['nombre'] }}</h2>
+    <p>Modifica los datos del programa y guarda los cambios.</p>
+
+    <form action="{{ url_for('editar_programa', id=programa['id']) }}" method="POST">
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre del Programa:</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" value="{{ programa['nombre'] }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="facultad" class="form-label">Facultad:</label>
+            <input type="text" class="form-control" id="facultad" name="facultad" value="{{ programa['facultad'] }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción:</label>
+            <textarea class="form-control" id="descripcion" name="descripcion" rows="3">{{ programa['descripcion'] }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-warning">Actualizar Programa</button>
+        <a href="{{ url_for('programas') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock%}
