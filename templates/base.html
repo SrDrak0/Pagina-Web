@@ -44,6 +44,73 @@
         footer a:hover {
             text-decoration: underline;
         }
+
+        .chat-bubble {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #007bff;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        
+        .chat-window {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            max-width: 90vw;
+            height: 500px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: none; /* Oculto por defecto */
+            flex-direction: column;
+            z-index: 1000;
+            border: 1px solid #ddd;
+        }
+        .chat-header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            text-align: center;
+        }
+        
+        .chat-body {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+        }
+
+        .chat-message { margin-bottom: 15px; display: flex; }
+        .bot-message { justify-content: flex-start; }
+        .user-message { justify-content: flex-end; }
+
+        .message-bubble {
+            padding: 10px 15px;
+            border-radius: 20px;
+            max-width: 80%;
+        }
+
+        .bot-message .message-bubble { background-color: #e9ecef; color: #333; }
+        .user-message .message-bubble { background-color: #007bff; color: white; }
+
+        .chat-input-area { border-top: 1px solid #ddd; background-color: #f8f9fa; }
+
+       
     </style>
 </head>
 <body>
@@ -80,5 +147,106 @@
         <p>&copy; 2023 Universitaria de Colombia. Todos los derechos reservados.</p>
         <a href="https://www.google.com" target="_blank">Visítenos en Internet</a>
     </footer>
+    <div class="chat-bubble" id="chatBubble">
+        <i class="fas fa-comments"></i>
+    </div>
+
+<div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+        <h5>Asistente Virtual</h5>
+    </div>
+    <div class="chat-body" id="chatBody">
+        </div>
+    <div class="chat-input-area">
+        <form id="chatForm" style="display: flex; padding: 10px;">
+            <input type="text" id="userInput" class="form-control" placeholder="Escribe tu pregunta..." autocomplete="off">
+            <button type="submit" class="btn btn-primary ms-2">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </form>
+    </div>
+</div>
+    </div>
+
+    <script>
+
+     
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatBubble = document.getElementById('chatBubble');
+            const chatWindow = document.getElementById('chatWindow');
+            const chatBody = document.getElementById('chatBody');
+            const chatForm = document.getElementById('chatForm');
+            const userInput = document.getElementById('userInput');
+
+       
+            chatBubble.addEventListener('click', () => {
+                const isDisplayed = chatWindow.style.display === 'flex';
+                chatWindow.style.display = isDisplayed ? 'none' : 'flex';
+                if (!isDisplayed) {
+                    userInput.focus();
+                    if (chatBody.innerHTML.trim() === '') {
+                        mostrarMensajeBot('<p>¡Hola! Soy tu asistente virtual. Pregúntame lo que quieras sobre la universidad.</p>');
+                    }
+                }
+            });
+
+      
+            chatForm.addEventListener('submit', async function(event) {
+                event.preventDefault();
+                const messageText = userInput.value.trim();
+                if (messageText === '') return;
+
+                mostrarMensajeUsuario(messageText);
+                userInput.value = '';
+
+                try {
+                    const response = await fetch("{{ url_for('ask_bot') }}", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ message: messageText }),
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('La respuesta del servidor no fue OK');
+                    }
+
+                    const data = await response.json();
+                    mostrarMensajeBot(data.response);
+
+                } catch (error) {
+                    console.error('Error:', error);
+                    mostrarMensajeBot('<p style="color:red;">Lo siento, estoy teniendo problemas para conectarme. Inténtalo de nuevo más tarde.</p>');
+                }
+            });
+
+            function addMessageToChat(html, type) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('chat-message', type);
+                
+                const bubble = document.createElement('div');
+                bubble.classList.add('message-bubble');
+                bubble.innerHTML = html;
+                
+                messageDiv.appendChild(bubble);
+                chatBody.appendChild(messageDiv);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }
+
+            function mostrarMensajeUsuario(mensaje) {
+               
+                const escapedMessage = document.createElement('p');
+                escapedMessage.textContent = mensaje;
+                addMessageToChat(escapedMessage.outerHTML, 'user-message');
+            }
+
+            function mostrarMensajeBot(html) {
+                addMessageToChat(html, 'bot-message');
+            }
+        });
+
+    </script>
+</body>
 </body>
 </html>
